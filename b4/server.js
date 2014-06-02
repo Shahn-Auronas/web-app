@@ -14,6 +14,7 @@
        session = require('express-session'),
        morgan = require('morgan'),
        cookieParser = require('cookie-parser'),
+       bodyParser = require('body-parser'),
        passport = require('passport'),
        app = express(),
        redisClient = require('redis').createClient(),
@@ -43,6 +44,7 @@ function (identifier, profile, done) {
 
 app.use(morgan('dev'));
 app.use(cookieParser());
+app.use(bodyParser());
 app.use(session({
 	secret: 'unguessable',
 	store: new RedisStore({
