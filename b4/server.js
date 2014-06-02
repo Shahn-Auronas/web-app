@@ -11,11 +11,13 @@
  const log = require('npmlog'),
        request = require('request'),
        express = require('express'),
+       session = require('express-session'),
        morgan = require('morgan'),
+       cookieParser = require('cookie-parser'),
        passport = require('passport'),
        app = express(),
        redisClient = require('redis').createClient(),
-       RedisStore = require('connect-redis')(express),
+       RedisStore = require('connect-redis')(session),
        GoogleStrategy = require('passport-google').Strategy;
 
 redisClient.on('ready', function () {
@@ -40,8 +42,8 @@ function (identifier, profile, done) {
 }));
 
 app.use(morgan('dev'));
-app.use(express.cookieParser());
-app.use(express.session({
+app.use(cookieParser());
+app.use(session({
 	secret: 'unguessable',
 	store: new RedisStore({
 		client: redisClient
