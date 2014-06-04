@@ -8,7 +8,7 @@
  */
 
  (function () {
- 	"use strict";
+ 	//"use strict";
 
  	var templates = {},
  	    bundles,
@@ -118,7 +118,7 @@
         }, showErr);
     });
     //Field Search typeahead
-    $('.fine-book.by-subject .search').typeahead({
+    $('.find-book.by-subject .search').typeahead({
     	name: 'subject',
     	limit: 10,
     	remote: '/api/search/subject?q=%QUERY'
