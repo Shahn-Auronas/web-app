@@ -16,7 +16,9 @@
        cookieParser = require('cookie-parser'),
        bodyParser = require('body-parser'),
        passport = require('passport'),
+
        app = express(),
+       
        redisClient = require('redis').createClient(),
        RedisStore = require('connect-redis')(session),
        GoogleStrategy = require('passport-google').Strategy;
@@ -107,7 +109,7 @@ app.get('/api/user/bundles', authed, function (req, res) {
 	});
 });
 
-app.put('/api/user/bundles', [authed, express.json()], function (req, res) {
+app.put('/api/user/bundles', [authed, bodyParser()], function (req, res) {
 	let userURL = config.b4db + encodeURIComponent(req.user.identifier);
 	request(usrURL, function (err, couchRes, body) {
 		if (err) {
