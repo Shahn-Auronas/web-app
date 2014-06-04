@@ -29,7 +29,7 @@ redisClient.on('ready', function () {
 	log.error('REDIS', err.message);
 });
 
-passport.serializeUser(function (user, don) {
+passport.serializeUser(function (user, done) {
 	done(null, user.indentifer);
 });
 passport.deserializeUser(function (id, done) {
