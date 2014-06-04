@@ -12,15 +12,17 @@
 
  	var templates = {},
  	    bundles,
-
+        //pull down remote copy from server
  	    getBundles = function () {
  	    	$.ajax({
  	    		url: '/api/user/bundles'
  	    	}).then(
  	    	function (data, status, xhr) {
+                //local copy of user bundles stored on server
  	    		bundles = data;
  	    		showBundles();
- 	    	}, function (xhr, status, err) {
+ 	    	}, 
+            function (xhr, status, err) {
  	    		if (xhr.status >= 500) {
  	    			showErr(xhr, status, err);
  	    		}
@@ -33,18 +35,22 @@
  	    		type: 'PUT',
  	    		url: '/api/user/bundles',
  	    		data: JSON.stringify(bundles),
+                //preserialized as json
  	    		contentType: 'application/json; charset=utf-8',
  	    		accepts: 'application/json'
  	    	}).then(
  	    	function (data, status, xhr) {
  	    		callback(null, data);
- 	    	}, function (xhr, status, err) {
+ 	    	}, 
+            function (xhr, status, err) {
  	    		callback(err);
  	    	});
  	    },
  	    showErr = function (xhr, status, err) {
  	    	$('.alert-danger').fadeIn().find('.message').text(err);
  	    },
+        //takes selected param (name of view we want) set window.loc
+        //then hide other views
  	    showView = function (selected) {
  	    	window.location.hash = '#' + selected;
  	    	$('.view').hide().filter('#' + selected + '-view').show();
@@ -67,20 +73,26 @@
  		var name = this.id.replace(/-template$/, '');
  		templates[name] = Handlebars.compile($(this).html());
  	});
+    //responds to direct URL changes for specific views
  	$(window).on('hashchange', function (event) {
  		var view = (window.location.hash || '').replace(/^#/, '');
+        //check to see if there is an elem on pg with matching view ID
  		if ($('#' + view + '-view').length) {
  			showView(view);
  		}
  	});
     //get user data, proceed to list-bundles or welcome
+    //two handlers on then: success/failure
     $.ajax({
     	url: '/api/user',
     	accepts: 'application/json'
     }).then(
     function (data, status, xhr) {
+        //success
     	getBundles();
-    }, function (xhr, status, err) {
+    }, 
+    function (xhr, status, err) {
+        //failure
     	showView('welcome');
     });
     //implement adding a new bundle
