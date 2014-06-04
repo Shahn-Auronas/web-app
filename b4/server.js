@@ -34,7 +34,7 @@ redisClient.on('ready', function () {
 //serializeUser() method: specify what's stored in session cookie
 //identifier string is unique, user-specific URL provided by Google
 passport.serializeUser(function (user, done) {
-	done(null, user.indentifer);
+	done(null, user.identifier);
 });
 //deserializeUser() method takes stored session data and 
 //turns into rich object to be used by app
