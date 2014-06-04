@@ -140,7 +140,7 @@ app.get('/api/user/bundles', authed, function (req, res) {
 //header is set to application/json, making req.body an object not just buffer
 app.put('/api/user/bundles', [authed, bodyParser()], function (req, res) {
 	let userURL = config.b4db + encodeURIComponent(req.user.identifier);
-	request(usrURL, function (err, couchRes, body) {
+	request(userURL, function (err, couchRes, body) {
 		if (err) {
 			res.json(502, {
 				error: "bad_gateway",
