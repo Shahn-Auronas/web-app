@@ -1,0 +1,11 @@
+{
+	"name": "b4",
+	"version": "0.0.1",
+	"dependencies": {
+		"jquery": "*",
+		"bootstrap": "*",
+		"typeahead.js": "*",
+		"typeahead.js-bootstrap.css": "*",
+		"handlebars": "*"
+	}
+}
